@@ -17,4 +17,11 @@ while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
 }
 
 echo "</table>";
+echo "<br>";
+
 ?>
+
+<form method="GET" action = "index.php">
+    <input type="date" name="date" />
+    <input type="submit" value="Показать" name="submit" />
+</form>
