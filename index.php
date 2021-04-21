@@ -21,23 +21,25 @@ echo "<br>";
 
 ?>
 
-<form method="GET" action = "index.php">
-    <input type="date" name="date" />
+<form method="POST" action = "index.php">
+    <input type="number" name="date" min="1000" max="9999"/>
     <input type="submit" value="Показать" name="submit" />
 </form>
 
 <?php
 
-session_start();
+//session_start();
 
-if (isset($_GET['submit'])) {
-    $number = $_GET['date'];
-    echo $number;
-    $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
-    $result = $conn->query($sql);
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-        echo " " .$row['bdate']. " ";
-    }
+if (isset($_POST['submit'])) {
+    $number = ($_POST['date']);
+//    echo gettype($number); string
+//    echo $number;
+    echo "<br>";
+//    echo gettype($number);
+        $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            echo " " . $row['bdate'] . " ";
+        }
 }
-
 ?>
