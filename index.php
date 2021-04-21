@@ -25,3 +25,16 @@ echo "<br>";
     <input type="date" name="date" />
     <input type="submit" value="Показать" name="submit" />
 </form>
+
+<?php
+
+session_start();
+
+if (isset($_REQUEST['submit'])) {
+    $number = $_REQUEST['number'];
+    $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
+    $result = $conn->query($sql);
+    echo $result;
+}
+
+?>
