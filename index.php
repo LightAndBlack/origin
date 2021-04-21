@@ -30,11 +30,14 @@ echo "<br>";
 
 session_start();
 
-if (isset($_REQUEST['submit'])) {
-    $number = $_REQUEST['number'];
+if (isset($_GET['submit'])) {
+    $number = $_GET['date'];
+    echo $number;
     $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
     $result = $conn->query($sql);
-    echo $result;
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+        echo " " .$row['bdate']. " ";
+    }
 }
 
 ?>
