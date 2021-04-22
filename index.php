@@ -31,12 +31,15 @@ echo "<br>";
 
 if (isset($_POST['submit'])) {
     $number = ($_POST['date']);
-    $text = ($_POST['text']); echo $text;// <script>alert("hi");</script> для проверки на экранирование, а как это связать с PDO prepare 42 строка???
-    echo "<br>";
+//    $text = ($_POST['text']); echo $text;// <script>alert("hi");</script> для проверки на экранирование, а как это связать с PDO prepare 42 строка???
+//    echo "<br>";
 
 //    $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
     $sql = $conn -> prepare("SELECT * FROM `users` WHERE `bdate` LIKE'$number%'");
     $sql -> execute();
+
+    $text = ($_POST['text']); echo $conn->quote($text);// <script>alert("hi");</script> для проверки на экранирование, а как это связать с PDO prepare 42 строка???
+    echo "<br>";
     //    $sql = $conn ->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
 //        $sql = $conn ->prepare("SELECT * FROM `users` WHERE `bdate` LIKE'$number%'");
 //        $sql -> execute();
@@ -53,10 +56,10 @@ if (isset($_POST['submit'])) {
 
     while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
         echo "<tr align='center'>";
-        echo "<td>" . $row['id'] . "</td>";
-        echo "<td>" . $row['first_name'] . "</td>";
-        echo "<td>" . $row['last_name'] . "</td>";
-        echo "<td>" . $row['bdate'] . "</td>";
+        echo "<td>" . $conn->quote($row['id']) . "</td>";
+        echo "<td>" . $conn->quote($row['first_name']) . "</td>";
+        echo "<td>" . $conn->quote($row['last_name']) . "</td>";
+        echo "<td>" . $conn->quote($row['bdate']) . "</td>";
         echo "</tr>";
     }
     echo "<table>";
