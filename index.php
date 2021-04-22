@@ -22,14 +22,14 @@ echo "<br>";
 ?>
 
     <form method="POST" action="index.php">
-        <input type="number" name="date" min="1000" max="9999"/>
+        <input type="number" name="date" placeholder="4 цифры" size="18" min="1000" max="9999"/>
         <input type="submit" value="Показать" name="submit"/>
     </form>
 
 <?php
 
 if (isset($_POST['submit'])) {
-    $number = ($_POST['date']);
+    $number = htmlspecialchars(strip_tags($_POST['date']));
 
     echo "<br>";
     $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
