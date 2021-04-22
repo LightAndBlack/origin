@@ -31,7 +31,7 @@ echo "<br>";
 
 if (isset($_POST['submit'])) {
     $number = ($_POST['date']);
-    $text = ($_POST['text']); echo $text;// <script>alert("hi");</script> для проверки на экранирование, а как это связать с PDO prepare???
+    $text = ($_POST['text']); echo $text;// <script>alert("hi");</script> для проверки на экранирование, а как это связать с PDO prepare 42 строка???
     echo "<br>";
 
 //    $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
 
     //https://tproger.ru/translations/how-to-configure-and-use-pdo/
     //Подготовленные запрос
-//    $date = $conn->prepare("INSERT INTO users(bdate) VALUES(?, ?)");
+    $date = $conn->prepare("INSERT INTO users(bdate) VALUES(?, ?)");
 
     echo "<table width='300px'><tr><th>id</th><th>first_name</th><th>last_name</th><th>bdate</th></tr>";
 
