@@ -47,7 +47,7 @@ if (isset($_POST['submit'])) {
 
     //https://tproger.ru/translations/how-to-configure-and-use-pdo/
     //Подготовленные запрос
-    $date = $conn->prepare("INSERT INTO users(bdate) VALUES(?, ?)");
+//    $date = $conn->prepare("INSERT INTO users(bdate) VALUES(?, ?)");
 
     echo "<table width='300px'><tr><th>id</th><th>first_name</th><th>last_name</th><th>bdate</th></tr>";
 
