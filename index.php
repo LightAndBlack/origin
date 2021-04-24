@@ -22,7 +22,7 @@ echo "<br>";
 ?>
 
     <form method="POST" action="index.php">
-        <input type="number" name="date" min="1000" max="9999"/>
+        <input type="text" name="date" min="1000" max="9999"/>
         <input type="submit" value="Показать" name="submit"/>
         <input type="text" name="text"> <!-- Проверка для экранирования -->
     </form>
@@ -35,8 +35,8 @@ if (isset($_POST['submit'])) {
 //    echo "<br>";
 
 //    $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
-    $sql = $conn -> prepare("SELECT * FROM `users` WHERE `bdate` LIKE'$number%'");
-    $sql -> execute();
+    $sql = $conn -> prepare("SELECT * FROM users WHERE YEAR(bdate) = :yob");
+    $sql -> execute(['yob' => $number]);
 
     $text = ($_POST['text']); echo $conn->quote($text);// <script>alert("hi");</script> для проверки на экранирование, а как это связать с PDO prepare 42 строка???
     echo "<br>";
@@ -56,10 +56,10 @@ if (isset($_POST['submit'])) {
 
     while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
         echo "<tr align='center'>";
-        echo "<td>" . $conn->quote($row['id']) . "</td>";
-        echo "<td>" . $conn->quote($row['first_name']) . "</td>";
-        echo "<td>" . $conn->quote($row['last_name']) . "</td>";
-        echo "<td>" . $conn->quote($row['bdate']) . "</td>";
+        echo "<td>" . $row['id'] . "</td>";
+        echo "<td>" . $row['first_name'] . "</td>";
+        echo "<td>" . $row['last_name'] . "</td>";
+        echo "<td>" . $row['bdate'] . "</td>";
         echo "</tr>";
     }
     echo "<table>";
