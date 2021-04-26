@@ -16,7 +16,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96520621-48dc-40e1-bbb1-3728882b4e07" name="Default Changelist" comment="3Forms&amp;dates">
+    <list default="true" id="96520621-48dc-40e1-bbb1-3728882b4e07" name="Default Changelist" comment="try prepare&amp;execute">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
@@ -43,6 +43,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -63,6 +64,13 @@
       <workItem from="1618948671297" duration="691000" />
       <workItem from="1619024074380" duration="13601000" />
       <workItem from="1619076450055" duration="2271000" />
+      <workItem from="1619102229589" duration="4159000" />
+      <workItem from="1619113993006" duration="319000" />
+      <workItem from="1619115121795" duration="7092000" />
+      <workItem from="1619129484342" duration="5050000" />
+      <workItem from="1619165877122" duration="2439000" />
+      <workItem from="1619171236920" duration="1534000" />
+      <workItem from="1619266023374" duration="1601000" />
     </task>
     <task id="LOCAL-00001" summary="Add fp.sql">
       <created>1618864229313</created>
@@ -113,7 +121,35 @@
       <option name="project" value="LOCAL" />
       <updated>1619043580606</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="working on pdo prepare (placeholders)">
+      <created>1619089712266</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1619089712266</updated>
+    </task>
+    <task id="LOCAL-00009" summary="is it working pdo prepare (placeholders) ?">
+      <created>1619118217530</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619118217530</updated>
+    </task>
+    <task id="LOCAL-00010" summary="is it working pdo prepare (placeholders) ?">
+      <created>1619118450125</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1619118450125</updated>
+    </task>
+    <task id="LOCAL-00011" summary="try quote">
+      <created>1619127718578</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619127718578</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +186,10 @@
     <MESSAGE value="Try to show dates" />
     <MESSAGE value="Try to show 2" />
     <MESSAGE value="Forms&amp;dates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Forms&amp;dates" />
+    <MESSAGE value="working on pdo prepare (placeholders)" />
+    <MESSAGE value="is it working pdo prepare (placeholders) ?" />
+    <MESSAGE value="try quote" />
+    <option name="LAST_COMMIT_MESSAGE" value="try quote" />
   </component>
   <component name="WindowStateProjectService">
     <state x="395" y="90" key="#Inspections" timestamp="1618855497841">
@@ -161,21 +200,29 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="520" y="236" key="#Notifications/0.0.1536.824@0.0.1536.824" timestamp="1619024747058" />
+    <state x="361" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1619266355140">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="70" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1619266355140" />
+    <state x="571" y="114" key="RollbackChangesDialog" timestamp="1619089231687">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="571" y="114" key="RollbackChangesDialog/0.0.1536.824@0.0.1536.824" timestamp="1619089231687" />
     <state x="93" y="93" width="1350" height="638" key="ShowDiffWithBranchDialog" timestamp="1618857992320">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="ShowDiffWithBranchDialog/0.0.1536.824@0.0.1536.824" timestamp="1618857992320" />
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1619043675106">
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1619127722331">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1619043675106" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1619127722331" />
     <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1619026383452">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="586" y="326" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1619026383452" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1618926392831">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1619117256419">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1618926392831" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1619117256419" />
   </component>
 </project>

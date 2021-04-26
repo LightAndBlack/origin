@@ -22,22 +22,21 @@ echo "<br>";
 ?>
 
     <form method="POST" action="index.php">
-        <input type="number" name="date" placeholder="4 цифры" size="18" min="1000" max="9999"/>
+        <input type="number" name="date" min="1000" max="9999"/>
         <input type="submit" value="Показать" name="submit"/>
     </form>
 
 <?php
 
 if (isset($_POST['submit'])) {
-    $number = htmlspecialchars(strip_tags($_POST['date']));
+    $number = ($_POST['date']);
 
-    echo "<br>";
-    $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
-    $result = $conn->query($sql);
+    $sql = $conn->prepare("SELECT * FROM users WHERE YEAR(bdate) = :yob");
+    $sql->execute(['yob' => $number]);
 
     echo "<table width='300px'><tr><th>id</th><th>first_name</th><th>last_name</th><th>bdate</th></tr>";
 
-    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+    while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
         echo "<tr align='center'>";
         echo "<td>" . $row['id'] . "</td>";
         echo "<td>" . $row['first_name'] . "</td>";
