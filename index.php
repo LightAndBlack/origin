@@ -22,35 +22,22 @@ echo "<br>";
 ?>
 
     <form method="POST" action="index.php">
-        <input type="text" name="date" min="1000" max="9999"/>
+        <input type="number" name="date" min="1000" max="9999"/>
         <input type="submit" value="Показать" name="submit"/>
-        <input type="text" name="text"> <!-- Проверка для экранирования -->
     </form>
 
 <?php
 
+$output = Array(); // это массив для возврата в js
+$output['success'] = 0; // Пока не получили результат, тут будет отрицательный код обработки
+$results = Array();  // это массив с результатами запроса 
+
 if (isset($_POST['submit'])) {
     $number = ($_POST['date']);
-//    $text = ($_POST['text']); echo $text;// <script>alert("hi");</script> для проверки на экранирование, а как это связать с PDO prepare 42 строка???
-//    echo "<br>";
 
-//    $sql = "SELECT * FROM `users` WHERE `bdate` LIKE'$number%'";
-    $sql = $conn -> prepare("SELECT * FROM users WHERE YEAR(bdate) = :yob");
-    $sql -> execute(['yob' => $number]);
-
-    $text = ($_POST['text']); echo $conn->quote($text);// <script>alert("hi");</script> для проверки на экранирование, а как это связать с PDO prepare 42 строка???
-    echo "<br>";
-    //    $sql = $conn ->prepare($sql, array(PDO::ATTR_CURSOR => PDO::CURSOR_FWDONLY));
-//        $sql = $conn ->prepare("SELECT * FROM `users` WHERE `bdate` LIKE'$number%'");
-//        $sql -> execute();
-//    $sql ->execute(array('3'));
-//    $array = $sql->fetch(PDO::FETCH_ASSOC);
-//    $result =$conn->query($sql);
-//    $sql =$conn->query($sql);
-
-    //https://tproger.ru/translations/how-to-configure-and-use-pdo/
-    //Подготовленные запрос
-//    $date = $conn->prepare("INSERT INTO users(bdate) VALUES(?, ?)");
+    $sql = $conn->prepare("SELECT * FROM users WHERE YEAR(bdate) = :yob");
+    if($sql->execute(['yob' => $number]))
+    $output['success'] = 1;
 
     echo "<table width='300px'><tr><th>id</th><th>first_name</th><th>last_name</th><th>bdate</th></tr>";
 
@@ -61,7 +48,54 @@ if (isset($_POST['submit'])) {
         echo "<td>" . $row['last_name'] . "</td>";
         echo "<td>" . $row['bdate'] . "</td>";
         echo "</tr>";
+        array_push($results,$row);
     }
+    $output['results'] = $results;
+    file_put_contents("output.txt", json_encode($output));
+	echo json_encode($output);
     echo "<table>";
 }
+
 ?>
+
+<script>
+
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous">
+
+    $(document).ready (function () {
+            $("input.submit").on("click", function() {
+                var bdateValue =  $('input.date').val();
+
+
+                $.ajax({                                                                                
+                  method: "POST",
+                  url: "http://localhost/mywebsite1/index.php",
+                  dataType: 'json',
+                  data: { date:bdateValue},
+                  success: function(response)
+            {
+                    $("#mytable").empty(); // таблицу результатов предварительно надо очистить. (обратите внимание. в балицу добавлен id!)
+                    if(response['success']==0) return; // если success=0 выходим
+                    var res = response['results'];
+                    $.each(res,function(i,row) { // цикл по строкам
+                        var newline=''; //сюда накопим html строки
+                        $.each(row,function(i,val) { //цикл по столбцам
+                          newline+='<td>'+val+'</td>'; // добавляем ячейку со значением
+                        });
+                        $("#mytable").append('<tr>'+newline+'</tr>'); // добавляем в таблицу строку
+                    });
+           }
+                })
+
+
+                 $('input.date').val(); 
+
+
+            })
+    })
+
+    alert('Hello world');
+
+</script>
