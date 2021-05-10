@@ -21,10 +21,31 @@ echo "<br>";
 
 ?>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+<style>
+    th{ 
+        color:#fff;
+            }
+</style>
+
+
     <form method="POST" action="index.php">
         <input type="number" name="date" min="1000" max="9999"/>
         <input type="submit" value="Показать" name="submit"/>
-    </form>
+    </form>	
+	<table class="table table-striped">
+    <tr  class="bg-info">
+		<th>id</th>
+        <th>first_name</th>
+        <th>last_name</th>
+        <th>bdate</th>
+    </tr>
+
+    <tbody id="myTable">       
+    </tbody>
+</table>
 
 <?php
 
@@ -39,63 +60,33 @@ if (isset($_POST['submit'])) {
     if($sql->execute(['yob' => $number]))
     $output['success'] = 1;
 
-    echo "<table width='300px'><tr><th>id</th><th>first_name</th><th>last_name</th><th>bdate</th></tr>";
-
     while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-        echo "<tr align='center'>";
-        echo "<td>" . $row['id'] . "</td>";
-        echo "<td>" . $row['first_name'] . "</td>";
-        echo "<td>" . $row['last_name'] . "</td>";
-        echo "<td>" . $row['bdate'] . "</td>";
-        echo "</tr>";
         array_push($results,$row);
     }
     $output['results'] = $results;
-    file_put_contents("output.txt", json_encode($output));
-	echo json_encode($output);
-    echo "<table>";
 }
-
 ?>
 
 <script>
 
-        src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-        crossorigin="anonymous">
+var RESULTS = '<?php echo json_encode($output['results']);?>';
+	var myArray = $.parseJSON(RESULTS);	
+	
+	buildTable(myArray)
 
-    $(document).ready (function () {
-            $("input.submit").on("click", function() {
-                var bdateValue =  $('input.date').val();
+	function buildTable(data){
+		var table = document.getElementById('myTable')
 
+		for (var i = 0; i < data.length; i++){
+			var row = `<tr>
+							<td>${data[i].id}</td>
+							<td>${data[i].first_name}</td>
+							<td>${data[i].last_name}</td>
+							<td>${data[i].bdate}</td>
+					  </tr>`
+			table.innerHTML += row
 
-                $.ajax({                                                                                
-                  method: "POST",
-                  url: "http://localhost/mywebsite1/index.php",
-                  dataType: 'json',
-                  data: { date:bdateValue},
-                  success: function(response)
-            {
-                    $("#mytable").empty(); // таблицу результатов предварительно надо очистить. (обратите внимание. в балицу добавлен id!)
-                    if(response['success']==0) return; // если success=0 выходим
-                    var res = response['results'];
-                    $.each(res,function(i,row) { // цикл по строкам
-                        var newline=''; //сюда накопим html строки
-                        $.each(row,function(i,val) { //цикл по столбцам
-                          newline+='<td>'+val+'</td>'; // добавляем ячейку со значением
-                        });
-                        $("#mytable").append('<tr>'+newline+'</tr>'); // добавляем в таблицу строку
-                    });
-           }
-                })
-
-
-                 $('input.date').val(); 
-
-
-            })
-    })
-
-    alert('Hello world');
+		}
+	}
 
 </script>

@@ -16,10 +16,7 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96520621-48dc-40e1-bbb1-3728882b4e07" name="Default Changelist" comment="try quote">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-    </list>
+    <list default="true" id="96520621-48dc-40e1-bbb1-3728882b4e07" name="Default Changelist" comment="try quote" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -71,6 +68,7 @@
       <workItem from="1619165877122" duration="2439000" />
       <workItem from="1619171236920" duration="1534000" />
       <workItem from="1619266023374" duration="1601000" />
+      <workItem from="1620407546457" duration="571000" />
     </task>
     <task id="LOCAL-00001" summary="Add fp.sql">
       <created>1618864229313</created>
