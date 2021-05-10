@@ -2,6 +2,8 @@
 
 require_once "db_connect.php";
 
+$number = ($_POST['date'])??'';
+
 $sql = "SELECT * FROM `users` WHERE `bdate` BETWEEN '1990-01-01' AND '1990-12-31'";
 $result = $conn->query($sql);
 
@@ -30,9 +32,8 @@ echo "<br>";
             }
 </style>
 
-
     <form method="POST" action="index.php">
-        <input type="number" name="date" min="1000" max="9999"/>
+    <input type="number" value="<?php echo $number;?>" name="date" min="1000" max="9999"/>
         <input type="submit" value="Показать" name="submit"/>
     </form>	
 	<table class="table table-striped">
@@ -47,32 +48,17 @@ echo "<br>";
     </tbody>
 </table>
 
-<?php
-
-$output = Array(); // это массив для возврата в js
-$output['success'] = 0; // Пока не получили результат, тут будет отрицательный код обработки
-$results = Array();  // это массив с результатами запроса 
-
-if (isset($_POST['submit'])) {
-    $number = ($_POST['date']);
-
-    $sql = $conn->prepare("SELECT * FROM users WHERE YEAR(bdate) = :yob");
-    if($sql->execute(['yob' => $number]))
-    $output['success'] = 1;
-
-    while ($row = $sql->fetch(PDO::FETCH_ASSOC)) {
-        array_push($results,$row);
-    }
-    $output['results'] = $results;
-}
-?>
-
 <script>
 
-var RESULTS = '<?php echo json_encode($output['results']);?>';
-	var myArray = $.parseJSON(RESULTS);	
-	
-	buildTable(myArray)
+	fetch('json.php?date=<?php echo $number; ?>')
+	//fetch('output.json')
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+	buildTable(data.results);
+  });
 
 	function buildTable(data){
 		var table = document.getElementById('myTable')
@@ -88,5 +74,5 @@ var RESULTS = '<?php echo json_encode($output['results']);?>';
 
 		}
 	}
-
+    
 </script>
